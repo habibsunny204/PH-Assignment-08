@@ -1,9 +1,44 @@
 import React from "react";
 import { createBrowserRouter } from "react-router";
+import MainLayout from "../Layouts/MainLayout";
+import ErrorPage from "../Pages/ErrorPage";
+import Home from "../Pages/Home";
+import InstalledApps from "../Pages/InstalledApps";
+import AppDetails from "../Pages/AppDetails";
+import Apps from "../Pages/Apps";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
+    hydrateFallbackElement: <p>Loading...</p>,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/apps",
+        element: <Apps />,
+      },
+      {
+        path: "installedapps",
+        element: <InstalledApps />,
+      },
+      {
+        path: "/apps/:id",
+        element: <AppDetails />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 

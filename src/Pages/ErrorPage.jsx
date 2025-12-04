@@ -1,11 +1,9 @@
 import React from 'react';
+import { useRouteError } from 'react-router';
 
 const ErrorPage = () => {
-  return (
-    <div>
-      
-    </div>
-  );
+  const error = useRouteError();
+  return <div>{error?.message || "An unknown error occurred"}</div>;
 };
 
 export default ErrorPage;
