@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import AppCard from "../Components/AppCard";

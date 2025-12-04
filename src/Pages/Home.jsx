@@ -119,8 +119,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* FEATURED APPS */}
       <section className="bg-white py-12">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
@@ -136,7 +134,6 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* 1 small, 2 md, 4 lg like you wanted */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredApps.map((app) => (
               <AppCard key={app.id} app={app} />
