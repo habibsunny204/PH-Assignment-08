@@ -9,15 +9,12 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import AppCard from "../Components/AppCard";
 import useApps from "../hooks/useApps";
 
-
 const Home = () => {
   const { apps, loading, error } = useApps();
   const featuredApps = apps.slice(0, 8);
 
   if (loading) {
-    return (
-      <LoadingSpinner />
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -30,7 +27,6 @@ const Home = () => {
 
   return (
     <div className="w-full">
-    
       <section className="bg-[#F4F5F9] pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight">
@@ -64,14 +60,13 @@ const Home = () => {
         </div>
       </section>
 
-     
       <section className="bg-[#EFF4F8]">
         <div className="max-w-5xl mx-auto flex justify-center">
           <img src={heroPhone} alt="ui" />
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-purple-600 to-purple-500 text-white py-12">
+      <section className="bg-linear-to-r from-purple-600 to-purple-500 text-white py-12">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-2xl font-semibold mb-10">
             Trusted by Millions, Built for You
@@ -120,18 +115,12 @@ const Home = () => {
         </div>
       </section>
       <section className="bg-white py-12">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-800">
-              Featured apps
+        <div className="max-w-5xl mx-auto px-4 flex flex-col items-center gap-7">
+          <div className="flex flex-col items-center">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-800">
+              Trending Apps
             </h1>
-
-            <Link
-              to="/apps"
-              className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
-            >
-              See all apps →
-            </Link>
+            <p className="text-gray-400">Explore All Trending Apps on the Market developed by us</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -139,6 +128,12 @@ const Home = () => {
               <AppCard key={app.id} app={app} />
             ))}
           </div>
+          <Link
+            to="/apps"
+            className="bg-linear-to-r from-purple-600 to-purple-400 text-white px-6 py-3 rounded-lg text-sm font-semibold shadow-md hover:opacity-90 active:scale-95 transition"
+          >
+            Show All
+          </Link>
         </div>
       </section>
     </div>

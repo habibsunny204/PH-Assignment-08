@@ -8,6 +8,7 @@ import AppDetails from "../Pages/AppDetails";
 import Apps from "../Pages/Apps";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,12 +29,16 @@ const router = createBrowserRouter([
         element: <Apps />,
       },
       {
-        path: "installedapps",
-        element: <InstalledApps />,
-      },
-      {
         path: "/apps/:id",
         element: <AppDetails />,
+      },
+      {
+        path:"/installedapps",
+        element:<InstalledApps />
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

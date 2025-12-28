@@ -1,19 +1,23 @@
 import React from "react";
 import downloadIcon from "../assets/icon-downloads.png";
 import starIcon from "../assets/icon-ratings.png";
+import { Link } from "react-router";
 
 const AppCard = ({ app }) => {
-  const { image, title, ratingAvg, downloads } = app;
+  const { image, title, id, ratingAvg, downloads } = app;
   const formatDownloads = (num) => {
     if (num >= 1_000_000_000) return `${Math.round(num / 1_000_000_000)}B`;
     if (num >= 1_000_000) return `${Math.round(num / 1_000_000)}M`;
     if (num >= 1_000) return `${Math.round(num / 1_000)}K`;
     return num;
   };
-  
+
   return (
-    <div className="bg-white rounded-3xl shadow-md hover:shadow-xl transition-shadow duration-200 flex flex-col overflow-hidden">
-      <div className="bg-gradient-to-b from-lime-100 to-yellow-100 flex items-center justify-center p-6">
+    <Link to={`/apps/${id}`}
+      className="bg-white rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 hover:scale-105 
+                transition-all duration-300 ease-out flex flex-col overflow-hidden"
+    >
+      <div className=" flex items-center justify-center p-6">
         <img
           src={image}
           alt={title}
@@ -36,7 +40,7 @@ const AppCard = ({ app }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
