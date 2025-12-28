@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
 html {
-  color-scheme: light;
+  color-scheme: only light;
 }
+
