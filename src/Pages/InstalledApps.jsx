@@ -12,11 +12,14 @@ const formatShortNumber = (num) => {
 
 const InstalledApps = () => {
   const { installedApps, uninstallApp } = useInstalledApps();
-  const [sortBy, setSortBy] = useState("size");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedApp, setSelectedApp] = useState(null);
+
+  const [sortBy, setSortBy] = useState("downloadsLow");
 
   const sorted = [...installedApps].sort((a, b) => {
-    if (sortBy === "size") return b.size - a.size;
-    if (sortBy === "rating") return b.ratingAvg - a.ratingAvg;
+    if (sortBy === "downloadsLow") return a.downloads - b.downloads;
+    if (sortBy === "downloadsHigh") return b.downloads - a.downloads;
     return 0;
   });
 
@@ -43,8 +46,12 @@ const InstalledApps = () => {
               onChange={(e) => setSortBy(e.target.value)}
               className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white shadow-sm"
             >
-              <option value="size">Sort By Size</option>
-              <option value="rating">Sort By Rating</option>
+              <option value="downloadsLow">
+                Sort By Downloads (Low → High)
+              </option>
+              <option value="downloadsHigh">
+                Sort By Downloads (High → Low)
+              </option>
             </select>
           </div>
         </div>
@@ -65,30 +72,33 @@ const InstalledApps = () => {
                     className="w-12 h-12 object-contain rounded-xl"
                   />
                 </div>
+
                 <div>
                   <h3 className="text-sm md:text-base font-semibold text-slate-900">
                     {app.title}
                   </h3>
+
                   <div className="mt-1 flex items-center gap-4 text-xs md:text-sm text-slate-600">
                     <span className="flex items-center gap-1 text-emerald-500">
-                      <img
-                        src={downloadIcon}
-                        alt="Downloads"
-                        className="w-3 h-3"
-                      />
+                      <img src={downloadIcon} className="w-3 h-3" alt="" />
                       {formatShortNumber(app.downloads)}
                     </span>
+
                     <span className="flex items-center gap-1 text-purple-600">
-                      <img src={starIcon} alt="Rating" className="w-3 h-3" />
+                      <img src={starIcon} className="w-3 h-3" alt="" />
                       {app.ratingAvg.toFixed(1)}
                     </span>
+
                     <span>{Math.round(app.size)} MB</span>
                   </div>
                 </div>
               </div>
 
               <button
-                onClick={() => uninstallApp(app.id)}
+                onClick={() => {
+                  setSelectedApp(app);
+                  setShowModal(true);
+                }}
                 className="ml-4 px-6 py-2 rounded-lg bg-emerald-500 text-white text-sm font-semibold shadow-[0_6px_0_rgba(16,185,129,0.7)] hover:translate-y-[1px] hover:shadow-[0_4px_0_rgba(16,185,129,0.7)] transition-all"
               >
                 Uninstall
@@ -104,6 +114,43 @@ const InstalledApps = () => {
           )}
         </div>
       </div>
+      {showModal && selectedApp && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 shadow-lg w-[360px]">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Uninstall App
+            </h3>
+
+            <p className="mt-3 text-sm text-gray-600">
+              Are you sure you want to uninstall
+              <span className="font-semibold text-purple-600">
+                {" "}
+                {selectedApp.title}
+              </span>
+              ?
+            </p>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 rounded-md border text-gray-700"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => {
+                  uninstallApp(selectedApp.id);
+                  setShowModal(false);
+                }}
+                className="px-5 py-2 rounded-md bg-emerald-500 text-white font-semibold shadow"
+              >
+                Uninstall
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
